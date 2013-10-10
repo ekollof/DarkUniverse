@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.7">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPanel" name="mainPanel">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="mainPanel" noResource="true"/>
+        <Property name="opaque" type="boolean" value="false"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="DarkUniverseView_mainPanel"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="TabbedPane" alignment="0" pref="690" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="1">
+                                  <Component id="PlayerNameLbl1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="PlayerNameLbl" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="NameChgBtn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="DiceShowBtn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="CharSaveBtn" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="WantXML" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="PlayerNameLbl" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="PlayerNameLbl1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="NameChgBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DiceShowBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="CharSaveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="WantXML" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="TabbedPane" pref="416" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="NameChgBtn">
+          <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="darkuniverseapp.DarkUniverseView" id="getCharacterName" methodName="getCharacterName"/>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="NameChgBtn.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="NameChgBtn.toolTipText"/>
+            <Property name="name" type="java.lang.String" value="NameChgBtn" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="PlayerNameLbl">
+          <Properties>
+            <Property name="font" type="java.awt.Font" noResource="true" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font component="PlayerNameLbl" property="font" relativeSize="true" size="4"/>
+              </FontInfo>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="PlayerNameLbl.text"/>
+            <Property name="name" type="java.lang.String" value="PlayerNameLbl" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="DarkUniverseView_jLabel4"/>
+            <AuxValue name="generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="DiceShowBtn">
+          <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="darkuniverseapp.DarkUniverseView" id="showDiceFrame" methodName="showDiceFrame"/>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="DiceShowBtn.text"/>
+            <Property name="name" type="java.lang.String" value="DiceShowBtn" noResource="true"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JTabbedPane" name="TabbedPane">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="TabbedPane" noResource="true"/>
+            <Property name="selectedComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="jPanel1"/>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel1">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Statistics">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel1.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="307" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel4" min="-2" pref="268" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="jPanel4">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="jPanel4" noResource="true"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="FCatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="ACatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="SCatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="ECatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="RCatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="ICatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="PCatLbl" min="-2" pref="37" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="Psycho" max="32767" attributes="1"/>
+                                  <Component id="Intuition" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Reason" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Endurance" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Strength" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Agility" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Fighting" alignment="0" min="-2" pref="37" max="-2" attributes="1"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="Initiative" max="32767" attributes="1"/>
+                                  <Component id="Health" alignment="0" pref="49" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Fighting" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Health" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FCatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Agility" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Initiative" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ACatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Strength" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SCatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Endurance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ECatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Reason" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="RCatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Intuition" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ICatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Psycho" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="PCatLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="Fighting">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Fighting.text"/>
+                        <Property name="name" type="java.lang.String" value="Fighting" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FightingActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="FightingPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel3">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel9">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel9.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel9" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel5">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Reason">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Reason.text"/>
+                        <Property name="name" type="java.lang.String" value="Reason" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReasonActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="ReasonPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel7">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel7.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel7" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel6">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel6.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Psycho">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Psycho.text"/>
+                        <Property name="name" type="java.lang.String" value="Psycho" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PsychoActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="PsychoPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Agility">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Agility.text"/>
+                        <Property name="name" type="java.lang.String" value="Agility" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgilityActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="AgilityPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Intuition">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Intuition.text"/>
+                        <Property name="name" type="java.lang.String" value="Intuition" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IntuitionActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="IntuitionPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Endurance">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Endurance.text"/>
+                        <Property name="name" type="java.lang.String" value="Endurance" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnduranceActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="EndurancePropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel8">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel8.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Strength">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Strength.text"/>
+                        <Property name="name" type="java.lang.String" value="Strength" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StrengthActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="StrengthPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel4">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel10">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel10.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel10" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Initiative">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Initiative.text"/>
+                        <Property name="name" type="java.lang.String" value="Initiative" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel16">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel16.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel16" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Health">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Health.text"/>
+                        <Property name="name" type="java.lang.String" value="Health" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="FCatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="FCatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="FCatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="ACatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="ACatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="ACatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="SCatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="SCatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="SCatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="ECatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="ECatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="ECatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="RCatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="RCatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="RCatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="ICatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="ICatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="ICatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="PCatLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="PCatLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="PCatLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jPanel5" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Powers">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel5.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel6" min="-2" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel6" min="-2" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="jPanel6">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="jPanel6" noResource="true"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="266" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane3" pref="349" max="32767" attributes="0"/>
+                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PwrNameLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="PowerCompleted" alignment="0" pref="262" max="32767" attributes="0"/>
+                                                  <Component id="PowerBase" alignment="0" pref="262" max="32767" attributes="1"/>
+                                                  <Component id="PowerName" alignment="0" pref="262" max="32767" attributes="1"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                              <Component id="PowerLevelNameLbl" min="-2" pref="29" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="PowerLevel" min="-2" pref="46" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="PowerSaveBtn" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="PowerDeleteBtn" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="PwrNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerBase" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerSaveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerLevel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerLevelNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerDeleteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="PowerCompleted" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="144" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane2" alignment="0" pref="302" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane2" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JList" name="PowerList">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" resourceKey="PowerList.toolTipText"/>
+                            <Property name="name" type="java.lang.String" value="PowerList" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel13">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel13.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel13" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane3" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="PowerDescription">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="PowerDescription" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel14">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel14.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel14" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="PowerBase">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerBase.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerBase" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="PwrNameLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="PwrNameLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="PwrNameLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="PowerCompleted">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="4">
+                            <StringItem index="0" value="1/3"/>
+                            <StringItem index="1" value="2/3"/>
+                            <StringItem index="2" value="3/3"/>
+                            <StringItem index="3" value="Completed"/>
+                          </StringArray>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="PowerCompleted" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="PowerSaveBtn">
+                      <Properties>
+                        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                          <action class="darkuniverseapp.DarkUniverseView" id="pwrSaveBtnClick" methodName="pwrSaveBtnClick"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerSaveBtn.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerSaveBtn" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel12">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel12.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel12" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="PowerName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerName.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerName" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="PowerLevelNameLbl">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerLevelNameLbl.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerLevelNameLbl" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="PowerLevel">
+                      <Properties>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerLevel.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerLevel" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PowerLevelActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="PowerLevelPropertyChange"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel15">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel15.text"/>
+                        <Property name="name" type="java.lang.String" value="jLabel15" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="PowerDeleteBtn">
+                      <Properties>
+                        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                          <action class="darkuniverseapp.DarkUniverseView" id="pwrDeleteBtnClick" methodName="pwrDeleteBtnClick"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="PowerDeleteBtn.text"/>
+                        <Property name="name" type="java.lang.String" value="PowerDeleteBtn" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel2">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Resources">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel2.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="255" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="288" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="jPanel3">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                      <Component id="Karma" min="-2" pref="127" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="1">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="Resources" min="-2" pref="127" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="ResMod" max="32767" attributes="3"/>
+                                  <Component id="KarmaMod" alignment="0" pref="66" max="32767" attributes="3"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ResAddBtn" alignment="1" min="-2" max="-2" attributes="1"/>
+                                  <Component id="KarmaAddBtn" alignment="0" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Karma" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="KarmaMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="KarmaAddBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ResAddBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Resources" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ResMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="Karma">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="Karma" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Karma.text"/>
+                        <Property name="name" type="java.lang.String" value="Karma" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel1">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="jLabel1" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
+                        <Property name="alignmentX" type="float" value="0.5"/>
+                        <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel2">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="jLabel2" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
+                        <Property name="alignmentX" type="float" value="0.5"/>
+                        <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="KarmaMod">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="KarmaMod" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="KarmaMod.text"/>
+                        <Property name="name" type="java.lang.String" value="KarmaMod" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="ResAddBtn">
+                      <Properties>
+                        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                          <action class="darkuniverseapp.DarkUniverseView" id="addRes" methodName="addRes"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="ResAddBtn" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="ResAddBtn.text"/>
+                        <Property name="alignmentX" type="float" value="0.5"/>
+                        <Property name="name" type="java.lang.String" value="ResAddBtn" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="KarmaAddBtn">
+                      <Properties>
+                        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                          <action class="darkuniverseapp.DarkUniverseView" id="addKarma" methodName="addKarma"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="KarmaAddBtn" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="text" type="java.lang.String" resourceKey="KarmaAddBtn.text"/>
+                        <Property name="alignmentX" type="float" value="0.5"/>
+                        <Property name="name" type="java.lang.String" value="KarmaAddBtn" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Resources">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="Resources" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="Resources.text"/>
+                        <Property name="name" type="java.lang.String" value="Resources" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="ResMod">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" noResource="true" editor="org.netbeans.modules.form.editors2.FontEditor">
+                          <FontInfo relative="true">
+                            <Font component="ResMod" property="font" relativeSize="true" size="0"/>
+                          </FontInfo>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="11"/>
+                        <Property name="text" type="java.lang.String" resourceKey="ResMod.text"/>
+                        <Property name="name" type="java.lang.String" value="ResMod" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Notes">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jScrollPane1.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JEditorPane" name="PlayerNotes">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="PlayerNotes" noResource="true"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="CharSaveBtn">
+          <Properties>
+            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+              <action class="darkuniverseapp.DarkUniverseView" id="saveCharacter" methodName="saveCharacter"/>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="CharSaveBtn.text"/>
+            <Property name="name" type="java.lang.String" value="CharSaveBtn" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="PlayerNameLbl1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" noResource="true" editor="org.netbeans.modules.form.editors2.FontEditor">
+              <FontInfo relative="true">
+                <Font component="PlayerNameLbl1" property="font" relativeSize="true" size="4"/>
+              </FontInfo>
+            </Property>
+            <Property name="text" type="java.lang.String" resourceKey="PlayerNameLbl1.text"/>
+            <Property name="name" type="java.lang.String" value="PlayerNameLbl1" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="DarkUniverseView_jLabel4"/>
+            <AuxValue name="generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="WantXML">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="WantXML.text"/>
+            <Property name="name" type="java.lang.String" value="WantXML" noResource="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JMenuBar" name="menuBar">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="menuBar" noResource="true"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="fileMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="fileMenu.text"/>
+            <Property name="name" type="java.lang.String" value="fileMenu" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="jMenuItem1.text"/>
+                <Property name="name" type="java.lang.String" value="jMenuItem1" noResource="true"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="darkuniverseapp.DarkUniverseView" id="importXmlData" methodName="importXmlData"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="jMenuItem2.text"/>
+                <Property name="name" type="java.lang.String" value="jMenuItem2" noResource="true"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="org.jdesktop.application.Application" id="quit" methodName="quit"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="exitMenuItem" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+              </AuxValues>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="helpMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="helpMenu.text"/>
+            <Property name="name" type="java.lang.String" value="helpMenu" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="darkuniverseapp.DarkUniverseView" id="showAboutBox" methodName="showAboutBox"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="aboutMenuItem" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+              </AuxValues>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="statusPanel">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="statusPanel" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="statusPanelSeparator" alignment="0" pref="714" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="528" max="32767" attributes="0"/>
+                  <Component id="progressBar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="statusPanelSeparator" min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="statusMessageLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusAnimationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JSeparator" name="statusPanelSeparator">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="statusPanelSeparator" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusMessageLabel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="statusMessageLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusAnimationLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="name" type="java.lang.String" value="statusAnimationLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JProgressBar" name="progressBar">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="component" type="javax.swing.JComponent" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="mainPanel"/>
+    </Property>
+    <Property name="menuBar" type="javax.swing.JMenuBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="menuBar"/>
+    </Property>
+    <Property name="statusBar" type="javax.swing.JComponent" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="statusPanel"/>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,41,0,0,2,-54"/>
+  </AuxValues>
+</Form>
