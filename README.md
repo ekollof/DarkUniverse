@@ -13,4 +13,4 @@ Run:
 
     (in windows you can just doubleclick the .jar)
 
-
+![Main screen](https://raw.github.com/ekollof/DarkUniverse/master/screens/DarkUniverse-Main.png)
