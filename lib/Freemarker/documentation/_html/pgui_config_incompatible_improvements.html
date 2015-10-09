@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - The &quot;incompatible improvements&quot; setting
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          The &quot;incompatible improvements&quot; setting
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="gloss.html">Glossary</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc.html"><span class="hideA">Next page: </span>Miscellaneous</a></div><div class="pagerButton"><a href="pgui_config_errorhandling.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_config_incompatible_improvements"></a>The &quot;incompatible improvements&quot; setting  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_47">What does it do</a>
+      </li>
+      <li>
+        <a href="#pgui_config_incompatible_improvements_how_to_set">How to set it</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_47"></a>What does it do  </h2>
+
+
+          <p>This setting specifies the FreeMarker version number where the
+          not 100% backward compatible bug fixes and improvements
+          <i>that you want to enable</i> were already
+          implemented. Usually, it's a bad idea to left it on its default,
+          which is 2.3.0 (maximum backward compatibility).</p>
+
+          <p>In new projects you should set this to the FreeMarker version
+          that you are actually using. In older projects it's also usually
+          better to keep this high, however you better check the changes
+          activated (find them in <a href="http://freemarker.org/docs/api/freemarker/template/Configuration.html#Configuration-freemarker.template.Version-">the
+          API JavaDoc of the <tt>Configuration(Version)</tt>
+          constructor</a>), at least if not only the 3rd version number
+          (the micro version) of "incompatible improvements"
+          setting is increased. Generally, as far as you only increase the
+          last version number of this setting, the changes are always low
+          risk.</p>
+
+          <p>Bug fixes and improvements that are fully backward compatible,
+          also those that are important security fixes, are enabled regardless
+          of the "incompatible improvements" setting.</p>
+
+          <p>An important consequence of setting this setting is that now
+          your application will check if the stated minimum FreeMarker version
+          requirement is met. Like if you set this setting to 2.3.22, but
+          accidentally the application is deployed with FreeMarker 2.3.21,
+          then FreeMarker will fail, telling that a higher version is
+          required. After all, the fixes/improvements you have requested
+          aren't available on a lower version.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_config_incompatible_improvements_how_to_set"></a>How to set it  </h2>
+
+
+          <p>The incompatible improvements setting exists on the
+          <tt style="color: #A03D10">Configuration</tt> level. It can be set on multiple
+          ways (let's assume that we want to set it to 2.3.22):</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Create the
+              <tt style="color: #A03D10">freemarker.template.Configuration</tt> object
+              like:</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+... = new Configuration(Configuration.VERSION_2_3_22)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+
+            <li>
+              <p>Or, alter the <tt style="color: #A03D10">Configuration</tt> singleton
+              where you initialize its other settings like:</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setIncompatibleImprovements(Configuration.VERSION_2_3_22)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+
+            <li>
+              <p>Or, if you are configuring FreeMarker with properties
+              (<tt style="color: #A03D10">*.properties</tt> file or
+              <tt style="color: #A03D10">java.util.Properties</tt> object), add:</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+incompatible_improvements=2.3.22&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+
+            <li>
+              <p>Or, if you are configuring FreeMarker through
+              <tt style="color: #A03D10">FreemarkerServlet</tt>, add this
+              <tt style="color: #A03D10">init-param</tt> to it in the
+              <tt style="color: #A03D10">web.xml</tt>:</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;init-param&gt;
+    &lt;param-name&gt;incompatible_improvements&lt;/param-name&gt;
+    &lt;param-value&gt;2.3.22&lt;/param-value&gt;
+&lt;/init-param&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+          </ul>    </div>
+
+
+          <p>But, <i>if you set the
+          <tt style="color: #A03D10">object_wrapper</tt> setting</i> (same as
+          <tt style="color: #A03D10">Configuration.setObjectWrapper(ObjectWrapper)</tt>) of
+          your configuration, then it's important to know that
+          <tt style="color: #A03D10">BeansWrapper</tt> and its subclasses (most
+          importantly, <tt style="color: #A03D10">DefaultObjectWrapper</tt>) has its own
+          independent <tt style="color: #A03D10">incompatibleImprovements</tt> property,
+          and some fixes/improvements are activated by that, not by
+          <tt style="color: #A03D10">Configuration</tt>'s similar setting. You don't have
+          to be aware of this complication if you aren't setting the
+          <tt style="color: #A03D10">object_wrapper</tt> configuration setting anywhere,
+          because the default <tt style="color: #A03D10">object_wrapper</tt> has the same
+          "incompatible improvements" as of the
+          <tt style="color: #A03D10">Configuration</tt>. But if you are setting the
+          <tt style="color: #A03D10">object_wrapper</tt>, then you must not forget to set
+          the <tt style="color: #A03D10">incompatibleImprovements</tt> property of the
+          <tt style="color: #A03D10">ObjectWrapper</tt> itself, in additionally to that of
+          the <tt style="color: #A03D10">Configuration</tt>. (Note that it's fine to have
+          different "incompatible improvements" for the
+          <tt style="color: #A03D10">Configuration</tt> and for the
+          <tt style="color: #A03D10">ObjectWrapper</tt>, only it should be a conscious
+          decision.) <a href="pgui_datamodel_objectWrapper.html#topic.setDefaultObjectWrapperIcIIndividually">See here how
+          to set it</a> in the case of
+          <tt style="color: #A03D10">DefaultObjectWrapper</tt> (for
+          <tt style="color: #A03D10">BeansWrapper</tt> it's the same, only with different
+          class name of course).</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc.html"><span class="hideA">Next page: </span>Miscellaneous</a></div><div class="pagerButton"><a href="pgui_config_errorhandling.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          The &quot;incompatible improvements&quot; setting
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.22
+            <br>
+          HTML generated: 2015-02-28 21:34:03 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

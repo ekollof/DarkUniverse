@@ -16,6 +16,7 @@ public class Player implements java.io.Serializable {
 	static final long serialVersionUID = 42L;
 	public String playername;
 	public String playernotes;
+        public String baseclass;
 	public int resources;
 	public int karma;
 	public int health;
@@ -28,5 +29,5 @@ public class Player implements java.io.Serializable {
 	public int reason;
 	public int intuition;
 	public int psycho;
-	public Vector Powers;
+	public ArrayList Powers;
 }

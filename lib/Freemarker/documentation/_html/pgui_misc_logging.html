@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Logging
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Logging
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="gloss.html">Glossary</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_servlet.html"><span class="hideA">Next page: </span>Using FreeMarker with servlets</a></div><div class="pagerButton"><a href="pgui_misc_beanwrapper.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_logging"></a>Logging  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_57">Logging library selection</a>
+      </li>
+      <li>
+        <a href="#autoid_58">Logging categories</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_57"></a>Logging library selection  </h2>
+
+
+          <p>Is short, the recommended setup in contemporary application
+          (as of 2015) is using SLF4J API for logging everywhere. To get
+          FreeMarker 2.3.x. to use SLF4J, simply add the
+          <tt style="color: #A03D10">org.slf4j:log4j-over-slf4j</tt> dependency to your
+          project, and ensure that <tt style="color: #A03D10">log4j:log4j</tt> isn't
+          present. (Starting from FreeMarker 2.4.x you don't need
+          <tt style="color: #A03D10">log4j-over-slf4j</tt> anymore, though it does no harm
+          either.)</p>
+
+          <p>Read on if you are curious about the details, or if you can't
+          use SLF4J...</p>
+
+          <p>FreeMarker integrates with the following logging libraries:
+          <a href="http://www.slf4j.org/">SLF4J</a>, <a href="http://commons.apache.org/logging/">Apache Commons
+          Logging</a>, <a href="http://jakarta.apache.org/log4j">Log4J</a> 1.x, <a href="http://jakarta.apache.org/avalon/logkit">Avalon
+          LogKit</a>, and <a href="http://java.sun.com/j2se/1.4/docs/api/java/util/logging/package-summary.html"><tt>java.util.logging</tt></a>.
+          By default, FreeMarker will look for the these logging libraries in
+          the following order, and will automatically use the first one it
+          finds (in 2.3.x): Log4J (will use SLF4J instead if it's a
+          properly installed <tt style="color: #A03D10">log4j-over-slf4j</tt>, since
+          2.3.22), Apache Avalon LogKit, <tt style="color: #A03D10">java.util.logging</tt>.
+          As you can see, Log4j has the highest priority. The presence of
+          Log4j is simply detected from the presence of the
+          <tt style="color: #A03D10">org.apache.log4j.Logger</tt> class, which means that
+          Log4j redirections like <tt style="color: #A03D10">log4j-over-slf4j</tt> or
+          <tt style="color: #A03D10">log4j-1.2-api</tt> will also get the highest
+          priority.</p>
+
+          <p>Prior to FreeMarker 2.4, SLF4J and Apache Commons Logging
+          aren't searched automatically due to backward compatibility
+          constraints. But if you have
+          <tt style="color: #A03D10">org.slf4j:log4j-over-slf4j</tt> properly installed
+          (means, you have no real Log4j in your class path, and SLF4J has a
+          backing implementation like <tt style="color: #A03D10">logback-classic</tt>),
+          then FreeMarker will use the SLF4J API directly instead of the Log4j
+          API (since FreeMarker 2.3.22).</p>
+
+          <p>Note that a similar trick can be applied for logging into
+          Log4j2: If <tt style="color: #A03D10">org.apache.logging.log4j:log4j-1.2-api</tt>
+          is present, FreeMarker 2.3.x will pick that as it looks like Log4j,
+          but all the messages will actually go to Log4j2.</p>
+
+          <p>If the auto detection doesn't give you the result that you
+          want, you can set the
+          <tt style="color: #A03D10">org.freemarker.loggerLibrary</tt> system property to
+          select a logger library explicitly (since 2.3.22), like:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+java <i>...</i> -Dorg.freemarker.loggerLibrary=SLF4J&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The supported system property values are:
+          <tt style="color: #A03D10">SLF4J</tt>, <tt style="color: #A03D10">CommonsLogging</tt>,
+          <tt style="color: #A03D10">JUL</tt> (for <tt style="color: #A03D10">java.util.logging</tt>),
+          <tt style="color: #A03D10">Avalon</tt>, <tt style="color: #A03D10">auto</tt> (the default
+          behavior), <tt style="color: #A03D10">none</tt> (disables logging).</p>
+
+          <p>Note that for reliable operation, the system property should
+          be set when the JVM starts (like above), not later from Java
+          code.</p>
+
+          <p>Using SLF4J is recommended, as it works best with FreeMarker,
+          and also because it will be the highest priority auto detected
+          logger starting from FreeMarker 2.4.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_58"></a>Logging categories  </h2>
+
+
+          <p>All log messages produced by FreeMarker are logged with a
+          logger category that starts with <tt style="color: #A03D10">freemarker.</tt>. The
+          currently used logger categories are:</p>
+
+             <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+            <thead>
+              <tr>
+                <th>Log category name</th>
+
+
+                <th>Purpose</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.beans</tt></td>
+
+
+                <td>Logs messages of the Beans wrapper module.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.cache</tt></td>
+
+
+                <td>Logs messages related to template loading and
+                caching.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.runtime</tt></td>
+
+
+                <td>Logs messages related to template execution that doesn't
+                fit any of the more specific categories. Most importantly, it
+                logs template exceptions thrown during template processing
+                (however that should be disabled in modern application; see
+                later).</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.runtime.attempt</tt></td>
+
+
+                <td>Logs template exceptions thrown during template processing
+                and caught by
+                <tt style="color: #A03D10">attempt</tt>/<tt style="color: #A03D10">recover</tt>
+                directives, with DEBUG severity. Note that such exceptions
+                will be still also logged with their normal logger (like
+                <tt style="color: #A03D10">freemarker.runtime</tt>).</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.servlet</tt></td>
+
+
+                <td>Logs messages of the <tt style="color: #A03D10">FreemarkerServlet</tt>
+                class.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">freemarker.jsp</tt></td>
+
+
+                <td>Logs messages of the FreeMarker JSP support.</td>
+
+              </tr>
+
+            </tbody>
+
+                </table>
+   </div>
+
+
+          <p>One quirk relating this is that FreeMarker will log exceptions
+          during template execution under the
+          <tt style="color: #A03D10">freemarker.runtime</tt> category even if the exception
+          continues propagating and so eventually will be thrown by
+          <tt style="color: #A03D10">Template.process</tt> or
+          <tt style="color: #A03D10">Environment.process</tt> anyway. (Those are the API
+          calls with which the template was invoked from the application or
+          the application framework.) Well behaving applications log the
+          exceptions thrown at them, or rarely, handle them and deliberately
+          don't want to log them. But as FreeMarker has already logged that
+          exception, you will end up one more log entry than expected. To fix
+          that (since 2.3.22), set the
+          <tt style="color: #A03D10">log_template_exceptions</tt>
+          (<tt style="color: #A03D10">Configurable.setLogTemplateExceptions(boolean)</tt>)
+          setting to <tt style="color: #A03D10">false</tt>.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_servlet.html"><span class="hideA">Next page: </span>Using FreeMarker with servlets</a></div><div class="pagerButton"><a href="pgui_misc_beanwrapper.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Logging
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.22
+            <br>
+          HTML generated: 2015-02-28 21:34:03 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

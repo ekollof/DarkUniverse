@@ -1,0 +1,486 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Object wrappers
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Object wrappers
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="gloss.html">Glossary</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config.html"><span class="hideA">Next page: </span>The Configuration</a></div><div class="pagerButton"><a href="pgui_datamodel_node.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_datamodel_objectWrapper"></a>Object wrappers  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#pgui_datamodel_defaultObjectWrapper">The default object wrapper</a>
+      </li>
+      <li>
+        <a href="#pgui_datamodel_customObjectWrappingExample">Custom object wrapping example</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>The object wrapper is an object that implements the
+        <tt style="color: #A03D10">freemarker.template.ObjectWrapper</tt> interface. It's
+        purpose is to implement a mapping between Java objects (like
+        <tt style="color: #A03D10">String</tt>-s, <tt style="color: #A03D10">Map</tt>-s,
+        <tt style="color: #A03D10">List</tt>-s, instances of your application specific
+        classes, etc.) and FTL's type system. With other words, it specifies
+        how the templates will see the Java objects of the data-model
+        (including the return value of Java methods called from the template).
+        The object wrapper is plugged into the
+        <tt style="color: #A03D10">Configuration</tt> as its
+        <tt style="color: #A03D10">object_wrapper</tt> setting (or with
+        <tt style="color: #A03D10">Configuration.setObjectWrapper</tt>).</p><p>FTL's type system is technically represented by the
+        <tt style="color: #A03D10">TemplateModel</tt> sub-interfaces that were introduced
+        earlier (<tt style="color: #A03D10">TemplateScalarModel</tt>,
+        <tt style="color: #A03D10">TemplateHashMode</tt>,
+        <tt style="color: #A03D10">TemplateSequenceModel</tt>, etc). To map a Java object
+        to FTL's type system, object wrapper's <tt style="color: #A03D10">TemplateModel
+        wrap(java.lang.Object obj)</tt> method will be called.</p><p>Sometimes FreeMarker needs to reverse this mapping, in which
+        case the <tt style="color: #A03D10">ObjectWrapper</tt>'s <tt style="color: #A03D10">Object
+        unwrap(TemplateModel)</tt> method is called (or some other
+        variation of that, but see the API documentation for such details).
+        This last operation is in
+        <tt style="color: #A03D10">ObjectWrapperAndUnwrapper</tt>, the subinterface of
+        <tt style="color: #A03D10">ObjectWrapper</tt>. Most real world object wrappers will
+        implement <tt style="color: #A03D10">ObjectWrapperAndUnwrapper</tt>.</p><p>Here's how wrapping Java objects that contain other objects
+        (like a <tt style="color: #A03D10">Map</tt>, a <tt style="color: #A03D10">List</tt>, an array,
+        or an object with some JavaBean properties) usually work. Let's say,
+        an object wrapper wraps an <tt style="color: #A03D10">Object[]</tt> array into some
+        implementation of the <tt style="color: #A03D10">TemplateSquenceModel</tt>
+        interface. When FreeMarker needs an item from that FTL sequence, it
+        will call <tt style="color: #A03D10">TemplateSquenceModel.get(int index)</tt>. The
+        return type of this method is <tt style="color: #A03D10">TemplateModel</tt>, that
+        is, the <tt style="color: #A03D10">TemplateSquenceModel</tt> implementation not
+        only have to get the <tt style="color: #A03D10">Object</tt> from the given index of
+        the array, it's also responsible for wrapping that value before
+        returning it. To solve that, a typical
+        <tt style="color: #A03D10">TemplateSquenceModel</tt> implementation will store the
+        <tt style="color: #A03D10">ObjectWrapper</tt> that has cerated it, and then invoke
+        that <tt style="color: #A03D10">ObjectWrapper</tt> to wrap the contained value. The
+        same logic stands for <tt style="color: #A03D10">TemplateHashModel</tt> or for any
+        other <tt style="color: #A03D10">TemplateModel</tt> that's a container for further
+        <tt style="color: #A03D10">TemplateModel</tt>-s. Hence, usually, no mater how deep
+        the value hierarchy is, all values will be wrapped by the same single
+        <tt style="color: #A03D10">ObjectWrapper</tt>. (To create
+        <tt style="color: #A03D10">TemplateModel</tt> implementations that follow this
+        idiom, you can use the
+        <tt style="color: #A03D10">freemarker.template.WrappingTemplateModel</tt> as base
+        class.)</p><p>The data-model itself (the root variable) is a
+        <tt style="color: #A03D10">TemplateHashModel</tt>. The root object that you specify
+        to <tt style="color: #A03D10">Template.process</tt> will be wrapped with the object
+        wrapper specified in the <tt style="color: #A03D10">object_wrapper</tt>
+        configuration setting, which must yield a
+        <tt style="color: #A03D10">TemplateHashModel</tt>. From then on, the wrapping of
+        the contained values follow the logic described earlier (i.e., the
+        container is responsible for wrapping its children).</p><p>Well behaving object wrappers bypass objects that already
+        implement <tt style="color: #A03D10">TemplateModel</tt> as is. So if you put an
+        object into the data-model that already implements
+        <tt style="color: #A03D10">TemplateModel</tt> (or you return as such object from a
+        Java method that's called from the template, etc.), then you can avoid
+        actual object wrapping. You do this usually when you are creating a
+        value specifically to be accessed from a template. Thus, you avoid
+        much of the object wrapping performance overhead, also you can control
+        exactly what will the template see (not depending on the mapping
+        strategy of the current object wrapper). A frequent application of
+        this trick is using a
+        <tt style="color: #A03D10">freemarker.template.SimpleHash</tt> as the data-model
+        root (rather than a <tt style="color: #A03D10">Map</tt>), by filling it with
+        <tt style="color: #A03D10">SimpleHash</tt>'s <tt style="color: #A03D10">put</tt> method (that's
+        important, so it won't have to copy an existing <tt style="color: #A03D10">Map</tt>
+        that you have already filled). This speeds up top-level data-model
+        variable access.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_datamodel_defaultObjectWrapper"></a>The default object wrapper  </h2>
+
+
+          
+
+          
+
+          <p>The default of the <tt style="color: #A03D10">object_wrapper</tt>
+          <tt style="color: #A03D10">Configuration</tt> setting is a
+          <tt style="color: #A03D10">freemarker.template.DefaultObjectWrapper</tt>
+          singleton. Unless you have very special requirements, it's
+          recommended to use this object wrapper, or an instance of a
+          <tt style="color: #A03D10">DefaultObjectWrapper</tt> subclass of yours.</p>
+
+          <p>It recognizes most basic Java types, like
+          <tt style="color: #A03D10">String</tt>, <tt style="color: #A03D10">Number</tt>,
+          <tt style="color: #A03D10">Boolean</tt>, <tt style="color: #A03D10">Date</tt>,
+          <tt style="color: #A03D10">List</tt> (and in general all kind of
+          <tt style="color: #A03D10">java.util.Collection</tt>-s), arrays,
+          <tt style="color: #A03D10">Map</tt>, etc., and wraps them into the naturally
+          matching <tt style="color: #A03D10">TemplateModel</tt> interfaces. It will also
+          wrap W3C DOM nodes with
+          <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt>, so you can
+          conveniently traverse XML as <a href="xgui.html">described in its
+          own chapter</a>). For Jython objects, it will delegate to
+          <tt style="color: #A03D10">freemarker.ext.jython.JythonWrapper</tt>. For all
+          other objects, it will invoke <tt style="color: #A03D10">BeansWrapper.wrap</tt>
+          (the super class's method), which will expose the JavaBean
+          properties of the objects as hash items (like
+          <tt style="color: #A03D10">myObj.foo</tt> in FTL will call
+          <tt style="color: #A03D10">getFoo()</tt> behind the scenes), and will also expose
+          the public methods (JavaBean actions) of the object (like
+          <tt style="color: #A03D10">myObj.bar(1, 2)</tt> in FTL will call a method). (For
+          more information about BeansWrapper, <a href="pgui_misc_beanwrapper.html">see its own section</a>.)</p>
+
+          <p>Some further details that's worth mentioning about
+          <tt style="color: #A03D10">DefaultObjectWrapper</tt>:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>You shouldn't use its constructor usually, instead create
+              it using a <tt style="color: #A03D10">DefaultObjectWrapperBuilder</tt>. This
+              allows FreeMarker to use singletons.</p>
+            </li>
+
+            <li><a name="topic.defaultObjectWrapperIcI"></a>
+              <p><tt style="color: #A03D10">DefaultObjectWrapper</tt> has an
+              <tt style="color: #A03D10">incompatibleImprovements</tt> property, that's
+              highly recommended to set to 2.3.22 or higher (see the <a href="http://freemarker.org/docs/api/freemarker/template/DefaultObjectWrapper.html#DefaultObjectWrapper-freemarker.template.Version-">API
+              documentation</a> for the effects). How to set it:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>If you have set the
+                  <tt style="color: #A03D10">incompatible_improvements</tt> setting
+                  <i>of the <tt style="color: #A03D10">Configuration</tt></i>
+                  to 2.3.22 or higher, and you didn't set the
+                  <tt style="color: #A03D10">object_wrapper</tt> setting (so it had
+                  remained on its default value), then you have to do nothing,
+                  as it already uses a <tt style="color: #A03D10">DefaultObjectWrapper</tt>
+                  singleton with the equivalent
+                  <tt style="color: #A03D10">incompatibleImprovements</tt> property
+                  value.</p>
+                </li>
+
+                <li><a name="topic.setDefaultObjectWrapperIcIIndividually"></a>
+                  <p>Otherwise you have to set the
+                  <tt style="color: #A03D10">incompatibleImprovements</tt> independently of
+                  the <tt style="color: #A03D10">Configuration</tt>. Depending on how you
+                  create/set the <tt style="color: #A03D10">ObjectWrapper</tt>, it can be
+                  done like this (let's assume you want
+                  <tt style="color: #A03D10">incompatibleImprovements</tt> 2.3.22):</p>
+
+                      <div class="itemizedlist">
+<ul>
+                    <li>
+                      <p>If you are using the builder API:</p>
+
+                      <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+... = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_22).build()&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+                    </li>
+
+                    <li>
+                      <p>Or, if you are using the constructor:</p>
+
+                      <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+... = new DefaultObjectWrapper(Configuration.VERSION_2_3_22)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+                    </li>
+
+                    <li>
+                      <p>Or, if you are using the
+                      <tt style="color: #A03D10">object_wrapper</tt> property
+                      (<tt style="color: #A03D10">*.properties</tt> file or
+                      <tt style="color: #A03D10">java.util.Properties</tt> object):</p>
+
+                      <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+object_wrapper=DefaultObjectWrapper(2.3.21)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+                    </li>
+
+                    <li>
+                      <p>Or, if you are configuring the
+                      <tt style="color: #A03D10">object_wrapper</tt> through a
+                      <tt style="color: #A03D10">FreemarkerServlet</tt> with an
+                      <tt style="color: #A03D10">init-param</tt> in
+                      <tt style="color: #A03D10">web.xml</tt>:</p>
+
+                      <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;init-param&gt;
+    &lt;param-name&gt;object_wrapper&lt;/param-name&gt;
+    &lt;param-value&gt;DefaultObjectWrapper(2.3.21)&lt;/param-value&gt;
+&lt;/init-param&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+                    </li>
+                  </ul>    </div>
+
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>In new or properly test-covered projects it's also
+              recommended to set the
+              <tt style="color: #A03D10">forceLegacyNonListCollections</tt> property to
+              <tt style="color: #A03D10">false</tt>. If you are using
+              <tt style="color: #A03D10">.properties</tt> or
+              <tt style="color: #A03D10">FreemarkerServlet</tt> init-params or such, that
+              will look like <tt style="color: #A03D10">DefaultObjectWrapper(2.3.22,
+              forceLegacyNonListCollections=false)</tt>, while with the
+              Java API you call
+              <tt style="color: #A03D10">setForceLegacyNonListCollections(false)</tt> on
+              the <tt style="color: #A03D10">DefaultObjectWrapperBuilder</tt> object before
+              calling <tt style="color: #A03D10">build()</tt>.</p>
+            </li>
+
+            <li>
+              <p>The most common way of customizing
+              <tt style="color: #A03D10">DefaultObjectWrapper</tt> is overriding its
+              <tt style="color: #A03D10">handleUnknownType</tt> method.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_datamodel_customObjectWrappingExample"></a>Custom object wrapping example  </h2>
+
+
+          
+
+          
+
+          
+
+          <p>Let's say you have an application-specific class like
+          this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+package com.example.myapp;
+
+public class Tupple&lt;E1, E2&gt; {
+    public Tupple(E1 e1, E2 e2) { ... }
+    public E1 getE1() { ... }
+    public E2 getE2() { ... }
+}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>You want templates to see this as a sequence of length 2, so
+          that you can do things like <tt style="color: #A03D10">someTupple[1]</tt>,
+          <tt style="color: #A03D10">&lt;#list someTupple
+          <i style="color: #DD4400">...</i>&gt;</tt>, or
+          <tt style="color: #A03D10">someTupple?size</tt>. For that you need to create a
+          <tt style="color: #A03D10">TemplateSequenceModel</tt> implementation that adapts
+          a <tt style="color: #A03D10">Tupple</tt> to the
+          <tt style="color: #A03D10">TempateSequenceMoldel</tt> interface:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+package com.example.myapp.freemarker;
+
+...
+
+public class TuppleAdapter extends WrappingTemplateModel implements TemplateSequenceModel,
+        AdapterTemplateModel {
+    
+    private final Tupple&lt;?, ?&gt; tupple;
+    
+    public TuppleAdapter(Tupple&lt;?, ?&gt; tupple, ObjectWrapper ow) {
+        super(ow);  // coming from WrappingTemplateModel
+        this.tupple = tupple;
+    }
+
+    @Override  // coming from TemplateSequenceModel
+    public int size() throws TemplateModelException {
+        return 2;
+    }
+    
+    @Override  // coming from TemplateSequenceModel
+    public TemplateModel get(int index) throws TemplateModelException {
+        switch (index) {
+        case 0: return wrap(tupple.getE1());
+        case 1: return wrap(tupple.getE2());
+        default: return null;
+        }
+    }
+
+    @Override  // coming from AdapterTemplateModel
+    public Object getAdaptedObject(Class hint) {
+        return tupple;
+    }
+    
+}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Regarding the classes and interfaces:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">TemplateSequenceModel</tt>: This is why the
+              template will see this as a sequence</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">WrappingTemplateModel</tt>: Just a
+              convenience class, used for <tt style="color: #A03D10">TemplateModel</tt>-s
+              that do object wrapping themselves. That's normally only needed
+              for objects that contain other objects. See the
+              <tt style="color: #A03D10">wrap(<i style="color: #DD4400">...</i>)</tt> calls
+              above.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">AdapterTemplateModel</tt>: Indicates that
+              this template model adapts an already existing object to a
+              <tt style="color: #A03D10">TemplateModel</tt> interface, thus unwrapping
+              should give back that original object.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>Lastly, we tell FreeMarker to wrap <tt style="color: #A03D10">Tupple</tt>-s
+          with the <tt style="color: #A03D10">TuppleAdapter</tt> (alternatively, you could
+          wrap them manually before passing them to FreeMarker). For that,
+          first we create a custom object wrapper:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+package com.example.myapp.freemarker;
+
+...
+
+public class MyAppObjectWrapper extends DefaultObjectWrapper {
+
+    public MyAppObjectWrapper(Version incompatibleImprovements) {
+        super(incompatibleImprovements);
+    }
+    
+    @Override
+    protected TemplateModel handleUnknownType(final Object obj) throws TemplateModelException {
+        if (obj instanceof Tupple) {
+            return new TuppleAdapter((Tupple&lt;?, ?&gt;) obj, this);
+        }
+        
+        return super.handleUnknownType(obj);
+    }
+    
+}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>and then where you configure FreeMarker (<a href="pgui_config.html">about configuring, see here...</a>) we plug
+          our object wrapper in:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+// Where you initialize the cfg *singleton* (happens just once in the application life-cycle):
+cfg = new Configuration(Configuration.VERSION_2_3_22);
+...
+cfg.setObjectWrapper(new MyAppObjectWrapper(cfg.getIncompatibleImprovements()));&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>or if you are configuring FreeMarker with
+          <tt style="color: #A03D10">java.util.Properties</tt> instead (and let's say it's
+          also a <tt style="color: #A03D10">.properties</tt> file):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+object_wrapper=com.example.myapp.freemarker.MyAppObjectWrapper(2.3.22)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config.html"><span class="hideA">Next page: </span>The Configuration</a></div><div class="pagerButton"><a href="pgui_datamodel_node.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Object wrappers
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.22
+            <br>
+          HTML generated: 2015-02-28 21:34:03 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

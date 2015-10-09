@@ -1,0 +1,34 @@
+﻿olinks: {
+  homepage: "http://freemarker.org/"
+  api: "api/index.html"
+}
+
+internalBookmarks: {
+  "Alpha. index": alphaidx
+  "Expressions": exp_cheatsheet 
+  "?builtins": ref_builtins_alphaidx
+  "#directives": ref_directive_alphaidx
+  ".spec_vars": ref_specvar
+  "FAQ": app_faq
+  "Glossary": gloss
+}
+
+externalBookmarks: {
+  "API": "api/index.html"
+  "Home": "../index.html"
+}
+
+validation: {
+  programlistingsRequireRole
+  // programlistingsRequireLanguage
+  maximumProgramlistingWidth: 100
+}
+
+generateEclipseTOC
+// eclipse: {
+//  link_to: "freemarker-toc.xml#ManualLink"
+// }
+
+onlineTrackerHTML: "docgen-misc/googleAnalytics.html"
+
+showXXELogo

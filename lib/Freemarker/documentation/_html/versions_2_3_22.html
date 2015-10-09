@@ -1,0 +1,1276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.22
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Version history</a>
+            <b>></b>
+          2.3.22
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="gloss.html">Glossary</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_21.html"><span class="hideA">Next page: </span>2.3.21</a></div><div class="pagerButton"><a href="app_versions.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_22"></a>2.3.22  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_137">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_138">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_139">Notes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2015-03-01</p><p>Note that since 2.3.22 is designed to be fully backward
+        compatible with the previous 2.3.x releases, <i>some of the
+        improvements and fixes described below are only activated when you
+        specifically ask for 2.3.22 "incompatible
+        improvements"</i> (it's always clearly indicated),
+        because they could, with very small chance, break existing
+        applications. For actively maintained applications it's probably
+        better to allow them. See <a href="pgui_config_incompatible_improvements.html#pgui_config_incompatible_improvements_how_to_set">how to set
+        "incomplatible improvements" here</a>.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_137"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>New built-ins: <tt style="color: #A03D10">api</tt> and
+              <tt style="color: #A03D10">has_api</tt>.
+              <tt style="color: #A03D10"><i style="color: #DD4400">value</i>?api</tt> provides
+              access to the API (usually, the Java API) of
+              <tt style="color: #A03D10"><i style="color: #DD4400">value</i></tt>, like
+              <tt style="color: #A03D10"><i style="color: #DD4400">value</i>?api.<i style="color: #DD4400">someJavaMethod()</i></tt>,
+              if the value itself supports this extra feature. This meant to
+              be used rarely, when you need to call a Java method of an
+              object, but the by-design simplistic view of the value that
+              FreeMarker exposes to the templates hides that, and there's no
+              equivalent built-in either. For example, when you put a
+              <tt style="color: #A03D10">Map</tt> into the data-model (and you are using
+              the default object wrapper), <tt style="color: #A03D10">myMap.myMethod()</tt>
+              in a template basically translates to <tt style="color: #A03D10">((Method)
+              myMap.get(&quot;myMethod&quot;)).invoke(...)</tt> in Java, thus you
+              can't call <tt style="color: #A03D10">myMethod</tt>. If, however, you write
+              <tt style="color: #A03D10">myMap?api.myMethod()</tt> instead, that means
+              <tt style="color: #A03D10">myMap.myMethod()</tt> in Java.</p>
+
+              <p><i>If you can, rely on the capabilities of the FTL
+              types and the related built-ins as far as possible. Using
+              <tt style="color: #A03D10">?api</tt> is only the last
+              resort.</i></p>
+
+              <p>Using <tt style="color: #A03D10">?api</tt> also happens to offer a
+              workaround for the lack of non-<tt style="color: #A03D10">String</tt>
+              <tt style="color: #A03D10">Map</tt> key support in FTL's
+              <tt style="color: #A03D10">[]</tt> operator (as in
+              <tt style="color: #A03D10">myMap[key]</tt>), because now you can write
+              <tt style="color: #A03D10">myMap?api.get(nonStringKey)</tt>.</p>
+
+              <p><tt style="color: #A03D10">?api</tt> is not enabled by default and
+              isn't available for all values. <a href="ref_builtins_expert.html#ref_buitin_api_and_has_api">See more
+              here...</a></p>
+            </li>
+
+            <li>
+              <p>Identifiers (like <tt style="color: #A03D10">someVariable</tt>) can now
+              contain minus (<tt style="color: #A03D10">-</tt>), dot
+              (<tt style="color: #A03D10">.</tt>), and colon (<tt style="color: #A03D10">:</tt>) at any
+              position, but those characters <i>must be escaped with a
+              preceding backslash</i> (<tt style="color: #A03D10">\</tt>), or else
+              they would be interpreted as operators. For example, to read the
+              variable whose name is "data-id", the correct
+              expression is <tt style="color: #A03D10">data\-id</tt>, as
+              <tt style="color: #A03D10">data-id</tt> would be interpreted as "data
+              minus id". This also works for named macro parameters,
+              which is useful when you want to accept arbitrary HTML
+              attributes in a catch-all parameter, like in <tt style="color: #A03D10">&lt;@box
+              class=&quot;someCssClass&quot; data\-id=product.id /&gt;</tt>. (When
+              you enumerate the catch-all parameter names inside the macro,
+              the key string you get is <tt style="color: #A03D10">&quot;data-id&quot;</tt> without
+              <tt style="color: #A03D10">\</tt> of course.)</p>
+            </li>
+
+            <li>
+              <p>Added <tt style="color: #A03D10">?lower_abc</tt> and
+              <tt style="color: #A03D10">?upper_abc</tt>. This converts
+              <tt style="color: #A03D10">1</tt>, <tt style="color: #A03D10">2</tt>,
+              <tt style="color: #A03D10">3</tt>, etc., to the string
+              <tt style="color: #A03D10">&quot;a&quot;</tt>, <tt style="color: #A03D10">&quot;b&quot;</tt>,
+              <tt style="color: #A03D10">&quot;c&quot;</tt>, etc. (or for <tt style="color: #A03D10">&quot;A&quot;</tt>,
+              <tt style="color: #A03D10">&quot;B&quot;</tt>, <tt style="color: #A03D10">&quot;C&quot;</tt>, etc.). When
+              reaching <tt style="color: #A03D10">&quot;z&quot;</tt>, it continues like
+              <tt style="color: #A03D10">&quot;aa&quot;</tt>, <tt style="color: #A03D10">&quot;ab&quot;</tt>, etc. This is
+              the same logic that you can see in column labels in spreadsheet
+              applications (like Excel or Calc). <a href="ref_builtins_number.html#ref_builtin_lower_abc">More details...</a></p>
+            </li>
+
+            <li>
+              <p>Added <tt style="color: #A03D10">?keep_before_last</tt> and
+              <tt style="color: #A03D10">?keep_after_last</tt>. Example:
+              <tt style="color: #A03D10">&quot;foo.bar.txt&quot;?keep_before_last</tt> returns
+              <tt style="color: #A03D10">&quot;foo.bar&quot;</tt>,
+              <tt style="color: #A03D10">&quot;foo.bar.txt&quot;?keep_after_last</tt> returns
+              <tt style="color: #A03D10">&quot;txt&quot;</tt>. (These work like
+              <tt style="color: #A03D10">?keep_before</tt> and
+              <tt style="color: #A03D10">?keep_before</tt>, but those look for the first
+              occurrence of the separator.)</p>
+            </li>
+
+            <li>
+              <p>Added many missing UNICODE letters and digits to the set
+              of legal identifier characters, like Korean letters (bug fixed:
+              [<a href="https://sourceforge.net/p/freemarker/bugs/129/">129</a>])</p>
+            </li>
+
+            <li>
+              <p>Error message quality improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Several improvements when calling custom JSP tags; see
+                  them in its own section later.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed: When localized lookup or template
+                  acquisition has kicked in, error messages have still quoted
+                  the name used for requesting the template, rather that the
+                  actual template source name (like <tt style="color: #A03D10">foo.ftl</tt>
+                  instead of <tt style="color: #A03D10">foo_en.ftl</tt>, when the template
+                  was get as <tt style="color: #A03D10">foo.ftl</tt>, but behind the scenes
+                  was loaded from <tt style="color: #A03D10">foo_en.ftl</tt>).</p>
+                </li>
+
+                <li>
+                  <p>"Template not found" errors are now more
+                  detailed, giving hints about accidentally using
+                  <tt style="color: #A03D10">\</tt> instead of <tt style="color: #A03D10">/</tt>, or
+                  backing out of the <tt style="color: #A03D10">TemplateLoader</tt>'s root
+                  directory.</p>
+                </li>
+
+                <li>
+                  <p>The <tt style="color: #A03D10">#setting</tt> directive gives more
+                  helpful error message when the setting name is not
+                  recognized, and lists the allowed setting names or a
+                  correction suggestion.</p>
+                </li>
+
+                <li>
+                  <p>When a bad special variable name
+                  (<tt style="color: #A03D10">.<i style="color: #DD4400">name</i></tt>) is
+                  encountered, the list of available names is shown in the
+                  error message.</p>
+                </li>
+
+                <li>
+                  <p>When <tt style="color: #A03D10">Map.get</tt> or
+                  <tt style="color: #A03D10">Map.containsKey</tt> of a wrapped
+                  <tt style="color: #A03D10">Map</tt> throws a
+                  <tt style="color: #A03D10">ClassCastException</tt> or
+                  <tt style="color: #A03D10">NullPointerException</tt>, the error will
+                  point to the causing FTL expression (with some explanation),
+                  rather than bubbling up as low level runtime error.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_138"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Object wrapping improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">DefaultObjectWrapper</tt>, only with its
+                  <tt style="color: #A03D10">incompatible_improvements</tt> set to 2.3.22
+                  (<a href="pgui_datamodel_objectWrapper.html#topic.defaultObjectWrapperIcI">see how
+                  here...</a>), or more precisely, with its new
+                  <tt style="color: #A03D10">useAdaptersForContainers</tt> setting set to
+                  <tt style="color: #A03D10">true</tt> (which defaults to
+                  <tt style="color: #A03D10">true</tt> when
+                  <tt style="color: #A03D10">incompatible_improvements</tt> is set to
+                  2.3.22): It doesn't copy <tt style="color: #A03D10">Map</tt>-s,
+                  <tt style="color: #A03D10">List</tt>-s, and arrays anymore when wrapping
+                  them into <tt style="color: #A03D10">TemplateModel</tt>-s (which is the
+                  interface through with templates access all values), just
+                  wraps them into thin <tt style="color: #A03D10">TemplateModel</tt>
+                  adapters, that will reach the original object for all
+                  operations. The wrapped values will be instances of the new
+                  <tt style="color: #A03D10">DefaultMapAdapter</tt>,
+                  <tt style="color: #A03D10">DefaultListAdapter</tt> and
+                  <tt style="color: #A03D10">DefaultArrayAdapter</tt> classes, instead of
+                  the legacy (copying) <tt style="color: #A03D10">SimpleHash</tt> and
+                  <tt style="color: #A03D10">SimpleSequence</tt> classes. (Note that many
+                  projects use pure <tt style="color: #A03D10">BeansWrapper</tt> instead of
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt>, which has always
+                  used the adapter approach, albeit a different implementation
+                  of it. As the shortcomings of
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt> are fixed now, it's
+                  always recommended over <tt style="color: #A03D10">BeansWrapper</tt>, as
+                  <tt style="color: #A03D10">BeansWrapper</tt> gives quite confusing
+                  multi-typed values and is substantially slower.)</p>
+
+                  <p>While keeping backward compatibility as much as
+                  possible was an important factor in this change, this is a
+                  quite deep change, so you may want to <a href="#topic.defaultObjectWrapperSwitchToAdapters">review
+                  the consequences and reasons here...</a> (But again, this
+                  change is <i>not</i> active by default, so
+                  merely updating FreeMarker wont risk the stability of
+                  existing applications)</p>
+                </li>
+
+                <li>
+                  <p>Added <tt style="color: #A03D10">TemplateMethodModelEx
+                  BeansWrapper.wrap(Object object, Method method)</tt>
+                  for wrapping methods without wrapping their parent object
+                  and without going through overloaded method selection on
+                  invocation time.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed [<a href="http://sourceforge.net/p/freemarker/bugs/372/">372</a>]:
+                  <tt style="color: #A03D10">ClassCastException</tt> when a
+                  <tt style="color: #A03D10">SortedMap</tt> (typically, a
+                  <tt style="color: #A03D10">TreeMap</tt>) is wrapped with
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt> and then a 1
+                  character long string is get from it that doesn't exist. To
+                  fix the issue, if the wrapped <tt style="color: #A03D10">Map</tt> is a
+                  <tt style="color: #A03D10">SortedMap</tt> and it's wrapped by
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt>, it won't try to
+                  fall back to a <tt style="color: #A03D10">Character</tt> key after with
+                  the <tt style="color: #A03D10">String</tt> key has got
+                  <tt style="color: #A03D10">null</tt>. (This change should be backward
+                  compatible, because when a <tt style="color: #A03D10">SortedMap</tt> has
+                  <tt style="color: #A03D10">Character</tt> keys, the initial attempt with
+                  <tt style="color: #A03D10">String</tt> key causes
+                  <tt style="color: #A03D10">ClassCastException</tt>, thus, such
+                  <tt style="color: #A03D10">SortedMap</tt>-s were never usable as FTL
+                  hashes.)</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed [<a href="http://sourceforge.net/p/freemarker/bugs/368/">368</a>]:
+                  Only with <tt style="color: #A03D10">incompatible_improvements</tt> set
+                  to 2.3.22 or with its new
+                  <tt style="color: #A03D10">useAdaptersForContainers</tt> setting set to
+                  <tt style="color: #A03D10">true</tt>: Key order and other behavioral
+                  peculiarities of "custom"
+                  <tt style="color: #A03D10">Map</tt> types isn't lost anymore. The same
+                  stands for <tt style="color: #A03D10">List</tt>-s too.</p>
+                </li>
+
+                <li>
+                  <p>Added new setting,
+                  <tt style="color: #A03D10">forceLegacyNonListCollections</tt>. This only
+                  matters when <tt style="color: #A03D10">useAdaptersForContainers</tt> is
+                  <tt style="color: #A03D10">true</tt>. Then, unless you set this to
+                  <tt style="color: #A03D10">true</tt>,
+                  <tt style="color: #A03D10">java.util.Collection</tt>-s that aren't
+                  <tt style="color: #A03D10">List</tt>-s (like <tt style="color: #A03D10">Set</tt>-s)
+                  will continue using <tt style="color: #A03D10">SimpleSequence</tt> (i.e.,
+                  the copying approach) instead of the adapter approach. The
+                  default is <tt style="color: #A03D10">false</tt>, at least until
+                  <tt style="color: #A03D10">incompatible_improvements</tt> 2.4.0, because
+                  <tt style="color: #A03D10">SimpleSequence</tt> gave indexed access to
+                  these non-<tt style="color: #A03D10">List</tt>-s, like in
+                  <tt style="color: #A03D10">mySet[2]</tt>, which is strange but some
+                  existing templates may utilize this, even if only
+                  accidentally. With
+                  <tt style="color: #A03D10">forceLegacyNonListCollections</tt> set to
+                  <tt style="color: #A03D10">false</tt>, indexed access won't be possible
+                  for <tt style="color: #A03D10">Set</tt>-s and such anymore (nor will
+                  <tt style="color: #A03D10">?first</tt> and <tt style="color: #A03D10">?last</tt> work,
+                  but <tt style="color: #A03D10">?size</tt> will still do), so you may want
+                  to retest old templates. On the other hand, you get the
+                  advantages of the adapter approach. Hence, in new projects
+                  it's highly recommended to set
+                  <tt style="color: #A03D10">forceLegacyNonListCollections</tt> to
+                  <tt style="color: #A03D10">false</tt>. (The adapter approach is
+                  implemented by
+                  <tt style="color: #A03D10">DefaultNonListCollectionAdapter</tt>.)</p>
+                </li>
+
+                <li>
+                  <p>Added new, <i>experimental</i> FTL type
+                  interface,
+                  <tt style="color: #A03D10">freemarker.template.TemplateCollectionModelEx</tt>,
+                  which adds the <tt style="color: #A03D10">size()</tt>,
+                  <tt style="color: #A03D10">isEmpty()</tt>, and <tt style="color: #A03D10">boolean
+                  contains(TemplateModel)</tt> methods to the
+                  <tt style="color: #A03D10">TemplateCollectionModel</tt> interface. This
+                  was added because when wrapping
+                  <tt style="color: #A03D10">java.util.Collections</tt> these extra
+                  capabilities area available anyway, but FTL couldn't tap on
+                  them till now. While the exact interface details are marked
+                  as experimental, the feature itself is already utilized for
+                  <tt style="color: #A03D10">?size</tt> when setting the
+                  <tt style="color: #A03D10">forceLegacyNonListCollections</tt> property of
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt> to
+                  <tt style="color: #A03D10">false</tt> (see earlier).</p>
+                </li>
+
+                <li>
+                  <p>Added new <i>experimental</i> interface,
+                  <tt style="color: #A03D10">freemarker.template.ObjectWrapperAndUnwrapper</tt>.
+                  This extends <tt style="color: #A03D10">ObjectWrapper</tt> with
+                  unwrapping functionality. This functionality has already
+                  existed for a long time in <tt style="color: #A03D10">BeansWrapper</tt>
+                  and its subclasses, like in
+                  <tt style="color: #A03D10">DefaultObjectWrapper</tt>, but it wasn't
+                  "factored out" into its own published interface
+                  that other <tt style="color: #A03D10">ObjectWrapper</tt>-s could
+                  implement. This is useful for
+                  <tt style="color: #A03D10">TemplateModel</tt> implementations that don't
+                  want to require a <tt style="color: #A03D10">BeansWrapper</tt> (or its
+                  subclass), only the availability of the unwrapping
+                  functionality.</p>
+                </li>
+
+                <li>
+                  <p>Added new <i>experimental</i> interfaces
+                  to implement <tt style="color: #A03D10">?api</tt> (see it in the FTL
+                  section): <tt style="color: #A03D10">TemplateModelWithAPISupport</tt>,
+                  <tt style="color: #A03D10">ObjectAPIWrapper</tt>,
+                  <tt style="color: #A03D10">RichObjectWrapper</tt>. Note that while the
+                  interfaces are experimental, <tt style="color: #A03D10">?api</tt> itself
+                  isn't.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">FreemarkerServlet</tt> improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">FreemarkerServlet</tt> now supports
+                  custom JSP EL functions (defined in TLD-s with
+                  <tt style="color: #A03D10">function</tt> XML elements). Earlier it has
+                  ignored them. The custom EL function can be called like a
+                  Java method, for example: <tt style="color: #A03D10">&lt;#assign
+                  u=JspTaglibs[&quot;/WEB-INF/utils.tld&quot;]&gt; ...
+                  ${u.truncate(title, 25)}</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed: Error message was unhelpful when there was
+                  a type mismatch between the actual and the expected type of
+                  a custom tag parameter. This was a very frequent problem of
+                  users who call JSP taglibs from FTL (the typical
+                  &quot;java.lang.IllegalArgumentException: argument type
+                  mismatch&quot;, without any FTL context). Now it's a proper error
+                  with explanation, solution tip, and FTL error
+                  position/quotation.</p>
+                </li>
+
+                <li>
+                  <p>RFE resolved [<a href="https://sourceforge.net/p/freemarker/feature-requests/113/">113</a>]
+                  [<a href="https://sourceforge.net/p/freemarker/feature-requests/114/">114</a>]:
+                  <tt style="color: #A03D10">FreemarkerServlet</tt> can now discover
+                  <tt style="color: #A03D10">META-INF/**/*.tld</tt>-s that are visible for
+                  the class loader but aren't in
+                  <tt style="color: #A03D10">WEB-INF/lib/*.jar</tt>-s. For this feature to
+                  be active, you must setup the extra TLD lookup with the
+                  <tt style="color: #A03D10">MetaInfTldSources</tt> and/or
+                  <tt style="color: #A03D10">ClasspathTlds</tt>
+                  <tt style="color: #A03D10">FreemarkerServlet</tt> init-params (see the
+                  <a href="http://freemarker.org/docs/api/freemarker/ext/servlet/FreemarkerServlet.html">Java
+                  API documentation of
+                  <tt>FreemarkerServlet</tt></a> for the
+                  description of these). For example, if you run your
+                  application from Eclipse with an embedded Servlet container,
+                  and thus the tag library jar-s aren't on the standard
+                  locations but are in the classpath like any other
+                  dependencies, now you can just write:</p>
+
+                  <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;init-param&gt;
+  &lt;param-name&gt;MetaInfTldSources&lt;/param-name&gt;
+  &lt;param-value&gt;classpath&lt;/param-value&gt;
+&lt;/init-param&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+                  <p>and then all the <tt style="color: #A03D10">META-INF</tt>
+                  directories that are visible for the class loader will be
+                  searched for TLD-s.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">MetaInfTldSources</tt> and
+                  <tt style="color: #A03D10">ClasspathTlds</tt> can also be appended to or
+                  replaced by the values of Java system properties
+                  <tt style="color: #A03D10">org.freemarker.jsp.metaInfTldSources</tt> and
+                  <tt style="color: #A03D10">org.freemarker.jsp.classpathTlds</tt>,
+                  respectively. Thus one can adjust these in the Eclipse run
+                  configuration without modifying the
+                  <tt style="color: #A03D10">web.xml</tt>. (See the <a href="http://freemarker.org/docs/api/freemarker/ext/servlet/FreemarkerServlet.html">Java
+                  API documentation of
+                  <tt>FreemarkerServlet</tt></a> for
+                  more.)</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">FreemarkerServlet</tt> now recognizes
+                  the
+                  <tt style="color: #A03D10">org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>
+                  servlet context attribute, and adds entries to
+                  <tt style="color: #A03D10">MetaInfTldSources</tt> (introduced above) from
+                  it.</p>
+                </li>
+
+                <li>
+                  <p>Added <tt style="color: #A03D10">protected
+                  FreemarkerServlet.createTaglibFactory()</tt> to allow
+                  fine tuning the settings of the
+                  <tt style="color: #A03D10">TaglibFactory</tt>. It now have a few setters,
+                  like <tt style="color: #A03D10">setObjectWrapper</tt>,
+                  <tt style="color: #A03D10">setMetaInfTldSource</tt>, etc.</p>
+                </li>
+
+                <li>
+                  <p>Added new servlet init-param,
+                  <tt style="color: #A03D10">BufferSize</tt>. This sets the buffer size via
+                  <tt style="color: #A03D10">HTTPServletResponse.setBufferSize()</tt> if
+                  the response state still allows that, ignores it
+                  otherwise.</p>
+                </li>
+
+                <li>
+                  <p>The <tt style="color: #A03D10">TemplatePath</tt> servlet init-param
+                  now supports a new kind of path, that looks like
+                  <tt style="color: #A03D10">classpath:com/example/myapp/templates</tt>.
+                  This is similar to the old
+                  <tt style="color: #A03D10">class://com/example/myapp/templates</tt>, but
+                  it uses the Thread Context Class Loader of the thread that
+                  initializes <tt style="color: #A03D10">FreemarkerSerlvet</tt>, and thus
+                  will work even if <tt style="color: #A03D10">freemarker.jar</tt> is not
+                  local to the web application. <tt style="color: #A03D10">class://</tt>
+                  has the problem that it uses the defining class loader of
+                  <tt style="color: #A03D10">FreemarkerSerlvet</tt> itself (or of its
+                  subclass).</p>
+                </li>
+
+                <li>
+                  <p>If <tt style="color: #A03D10">incompatible_improvements</tt> is set
+                  to 2.3.22 (or higher), the <tt style="color: #A03D10">TemplatePath</tt>
+                  servlet init-param supports specifying multiple comma
+                  separated paths inside
+                  <tt style="color: #A03D10">[<i style="color: #DD4400">...</i>]</tt>, like
+                  <tt style="color: #A03D10">&lt;param-value&gt;[ WEB-INF/templates,
+                  classpath:com/example/myapp/templates
+                  ]&lt;/param-value&gt;</tt>. This internally creates a
+                  <tt style="color: #A03D10">freemarker.cache.MultiTemplateLoader</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Added new servlet <tt style="color: #A03D10">init-param</tt>,
+                  <tt style="color: #A03D10">ExceptionOnMissingTemplate</tt>. Setting this
+                  to <tt style="color: #A03D10">true</tt> changes the behavior on
+                  template-not-found errors to similar to what you experience
+                  with other kind of template exceptions (a HTTP 500
+                  "Internal Server error" response on most
+                  setups). When it's <tt style="color: #A03D10">false</tt> (the legacy
+                  behavior), you only get a HTTP 404 "Not found".
+                  While that's also how JSP views work, this turns out to be a
+                  problem, because some frameworks give 404 to the visitor too
+                  if the MVC view gives 404. But to get to the point where you
+                  forward to the MVC View, the visitor had to visit a valid
+                  URL, only that page misses its View, so its broken on the
+                  server side, so it should be a 500.</p>
+                </li>
+
+                <li>
+                  <p>Added new overridable method:
+                  <tt style="color: #A03D10">FreemarkerServlet.createDefaultObjectWrapper()</tt>.
+                  This can be used for what
+                  <tt style="color: #A03D10">createObjectWrapper()</tt> is usually
+                  overridden for, but without unwillingly disabling the
+                  processing of the related init-params (like of
+                  <tt style="color: #A03D10">object_wrapper</tt>).</p>
+                </li>
+
+                <li>
+                  <p>Improved (or fixed) error logging: Now logs will
+                  always get into FreeMarker's own log, not only into the
+                  servlet container log. Also, earlier template-not-found and
+                  template parsing error details logs were sometimes lost,
+                  depending on the servlet container.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed, only active with
+                  <tt style="color: #A03D10">incompatible_improvements</tt> set to 2.3.22
+                  (or higher): Some kind of values, when put into the JSP
+                  <i>page</i> scope (via
+                  <tt style="color: #A03D10">#global</tt> or via the JSP
+                  <tt style="color: #A03D10">PageContext</tt> API) and later read back with
+                  the JSP <tt style="color: #A03D10">PageContext</tt> API (typically in a
+                  custom JSP tag), might come back as FreeMarker
+                  <tt style="color: #A03D10">TemplateModel</tt> objects instead of as
+                  objects with a standard Java type. Other Servlet scopes
+                  aren't affected. It's highly unlikely that something expects
+                  the presence of this bug. The affected values are of the FTL
+                  types listed below, and to trigger the bug, they either had
+                  to be created directly in the template (like as an FTL
+                  literal or with
+                  <tt style="color: #A03D10">?date</tt>/<tt style="color: #A03D10">time</tt>/<tt style="color: #A03D10">datetime</tt>),
+                  or you had to use <tt style="color: #A03D10">DefaultObjectWrapper</tt> or
+                  <tt style="color: #A03D10">SimpleObjectWrapper</tt> (or a subclass of
+                  them):</p>
+
+                      <div class="itemizedlist">
+<ul>
+                    <li>
+                      <p>FTL date/time/date-time values may came back as
+                      <tt style="color: #A03D10">freemarker.template.SimpleDate</tt>-s, now
+                      they come back as <tt style="color: #A03D10">java.util.Date</tt>-s
+                      instead.</p>
+                    </li>
+
+                    <li>
+                      <p>FTL sequence values may came back as
+                      <tt style="color: #A03D10">SimpleSequence</tt>-s, now they come back
+                      as <tt style="color: #A03D10">java.util.List</tt>-s as expected. This
+                      stands assuming that the
+                      <tt style="color: #A03D10">object_wrapper</tt> configuration setting
+                      is a subclass of <tt style="color: #A03D10">BeansWrapper</tt> (such
+                      as <tt style="color: #A03D10">DefaultObjectWrapper</tt>), but that's
+                      practically always the case in applications that use
+                      FreeMarker's JSP extension (otherwise it can still work,
+                      but it depends on the quality and capabilities of the
+                      <tt style="color: #A03D10">ObjectWrapper</tt> implementation).</p>
+                    </li>
+
+                    <li>
+                      <p>FTL hash values may came back as
+                      <tt style="color: #A03D10">SimpleHash</tt>-es, now they come back as
+                      <tt style="color: #A03D10">java.util.Map</tt>-s as expected (again,
+                      assuming that the object wrapper is a subclass of
+                      <tt style="color: #A03D10">BeansWrapper</tt>).</p>
+                    </li>
+
+                    <li>
+                      <p>FTL collection values may came back as
+                      <tt style="color: #A03D10">SimpleCollection</tt>-s, now they come
+                      back as <tt style="color: #A03D10">java.util.Collection</tt>-s as
+                      expected (again, assuming that the object wrapper is a
+                      subclass of <tt style="color: #A03D10">BeansWrapper</tt>).</p>
+                    </li>
+                  </ul>    </div>
+
+                </li>
+
+                <li>
+                  <p>Bug fixed: Now <tt style="color: #A03D10">*.tld</tt> files are
+                  searched in <tt style="color: #A03D10">WEB-INF/</tt> and in all its
+                  subdirectories recursively. Earlier they were only searched
+                  directly under <tt style="color: #A03D10">WEB-INF/</tt> and
+                  <tt style="color: #A03D10">WEB-INF/lib/</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed: Leading and trailing whitespace in TLD-s
+                  inside the <tt style="color: #A03D10">name</tt> and
+                  <tt style="color: #A03D10">tag-class</tt> elements is now removed.</p>
+                </li>
+
+                <li>
+                  <p>Unwanted behavior fixed: In case multiple TLD-s map to
+                  the same tag library URI, now
+                  <tt style="color: #A03D10">WEB-INF/**/*.tld</tt>-s has priority over
+                  <tt style="color: #A03D10">META-INF/**/*.tld</tt>-s coming from jar-s or
+                  classpath directories. Earlier, it was the other way around,
+                  except that <tt style="color: #A03D10">META-INF/lib/*.tld</tt>-s could
+                  still take precedence randomly. While the JSP specification
+                  (2.2) explicitly states that the order is not defined and
+                  shouldn't be relied upon, it's just logical that if someone
+                  puts a TLD directly under <tt style="color: #A03D10">WEB-INF</tt>, he
+                  meant that to be used in that particular web application,
+                  rather than the TLD-s coming from the dependency jars which
+                  are often shared by multiple web applications.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed: Defaults set in an overridden
+                  <tt style="color: #A03D10">FreemarkerServlet.createConfiguration</tt>
+                  won't be accidentally overwritten by
+                  <tt style="color: #A03D10">FreemarkerServlet</tt>'s factory defaults
+                  anymore. This was a problem with theses settings only:
+                  <tt style="color: #A03D10">template_exception_handler</tt>,
+                  <tt style="color: #A03D10">log_template_exceptions</tt>,
+                  <tt style="color: #A03D10">object_wrapper</tt>,
+                  <tt style="color: #A03D10">template_loader</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed: If you had multiple
+                  <tt style="color: #A03D10">FreemarkerServlet</tt>-s with different
+                  configuration settings in the same servlet context, that
+                  could lead to malfunction. (Normally, you only have one,
+                  just like there's only one servlet that processes
+                  <tt style="color: #A03D10">*.jsp</tt>.)</p>
+                </li>
+
+                <li>
+                  <p>Removed all the <tt style="color: #A03D10">xsd</tt> files
+                  (<tt style="color: #A03D10">web-app</tt> and <tt style="color: #A03D10">taglib</tt>
+                  schemas) from the FreeMarker artifact and from the XML
+                  entity resolver, as they were unused during XML
+                  parsing.</p>
+                </li>
+
+                <li>
+                  <p>Generally improved implementation quality
+                  (maintainability, error messages, performance bug fixes,
+                  test coverage) and better API documentation.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Logging facility improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Just like earlier, when auto-selecting the logger
+                  library (the default behavior), FreeMarker choses Log4j if
+                  it's available. But now, if that turns out to be
+                  <tt style="color: #A03D10">log4j-over-slf4j</tt>, FreeMarker will use
+                  SLF4J directly instead. (This fixes the issue where the
+                  logged location points to FreeMarker's log adapter class
+                  instead of the real call place.)</p>
+                </li>
+
+                <li>
+                  <p>FreeMarker now recognizes the
+                  <tt style="color: #A03D10">org.freemarker.loggerLibrary</tt> system
+                  property, which specifies which logger to use, like
+                  <tt style="color: #A03D10">java <i style="color: #DD4400">...</i>
+                  -Dorg.freemarker.loggerLibrary=SLF4J</tt>. This option
+                  deprecates
+                  <tt style="color: #A03D10">Logger.selectLoggerLibrary(int)</tt> as that
+                  was inherently unreliable (because you usually can't control
+                  class initialization order very well). The system property
+                  has precedence over
+                  <tt style="color: #A03D10">Logger.selectLoggerLibrary</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Generally improved implementation quality (more info
+                  printed when something fails, etc.).</p>
+                </li>
+
+                <li>
+                  <p>New configuration setting:
+                  <tt style="color: #A03D10">log_template_exceptions</tt>
+                  (<tt style="color: #A03D10">Configuration.setLogTemplateExceptions(boolean)</tt>).
+                  This specifies if <tt style="color: #A03D10">TemplateException</tt>-s
+                  thrown by template processing are logged by FreeMarker or
+                  not. The default is <tt style="color: #A03D10">true</tt> for backward
+                  compatibility, but that results in logging the exception
+                  twice in properly written applications, because there the
+                  <tt style="color: #A03D10">TemplateException</tt> thrown by the public
+                  FreeMarker API is also logged by the caller (even if only as
+                  the cause exception of a higher level exception). Hence, in
+                  modern applications it should be set to
+                  <tt style="color: #A03D10">false</tt>. (Note that this setting has no
+                  effect on the logging of exceptions caught by
+                  <tt style="color: #A03D10">#attempt</tt>/<tt style="color: #A03D10">#recover</tt>;
+                  those are always logged.)</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">Environment</tt> and custom directive
+              related improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">Environment.getCurrentDirectiveCallPlace()</tt>,
+                  which returns a <tt style="color: #A03D10">DirectiveCallPlace</tt> object
+                  when called from a custom directive (i.e., from
+                  <tt style="color: #A03D10">TemplateDirectiveModel.execute()</tt>). The
+                  <tt style="color: #A03D10">DirectiveCallPlace</tt> objects lets you
+                  associate an arbitrary object to the directive invocation
+                  inside the template, which can be used for call-place-bound
+                  caching (like the minification of non-dynamic nested
+                  content). See <tt style="color: #A03D10">DirectiveCallPlace</tt> in the
+                  Java API documentation for more.</p>
+                </li>
+
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">Environment.getMainTemplate()</tt>. Deprecated
+                  the ambiguous (and often broken: [<a href="https://sourceforge.net/p/freemarker/bugs/145/">145</a>])
+                  <tt style="color: #A03D10">Environment.getTemplate()</tt>.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Template loading:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Added new <tt style="color: #A03D10">Configuration</tt> setting,
+                  <tt style="color: #A03D10">template_lookup_strategy</tt>
+                  (<tt style="color: #A03D10">Configuration.setTemplateLookupStrategy(TemplateLookupStrategy)</tt>).
+                  This allows customizing what
+                  <tt style="color: #A03D10">TemplateLoader</tt>-level names will be tried
+                  when a template is requested. With this you can, for
+                  example, define a custom localized lookup sequence instead
+                  of the default (which looks like:
+                  <tt style="color: #A03D10">foo_de_LU_MAC.ftl, foo_de_LU.ftl,
+                  foo_de.ftl,</tt><tt style="color: #A03D10"> foo.ftl</tt>).</p>
+                </li>
+
+                <li>
+                  <p>Added new
+                  <tt style="color: #A03D10">Configuration.getTemplate(<i style="color: #DD4400">...</i>)</tt>
+                  parameter, <tt style="color: #A03D10">Object customLookupCondition</tt>.
+                  This parameter can be used by custom a
+                  <tt style="color: #A03D10">TemplateLookupStrategy</tt> to deduce the
+                  actual template name(s) from the requested name (similarly
+                  to as the default lookup strategy does that based on the
+                  locale). For example, on a multi-domain Web site, one may
+                  want to define some templates that are specialized to a
+                  domain, and thus use the domain name as the custom lookup
+                  condition. Then, when <tt style="color: #A03D10">foo.ftl</tt> is
+                  requested, a custom
+                  <tt style="color: #A03D10">TemplateLookupStrategy</tt> could first look
+                  for <tt style="color: #A03D10">@somedomain.com/foo.ftl</tt>, and then for
+                  <tt style="color: #A03D10">@default/foo.ftl</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Added new <tt style="color: #A03D10">Configuration</tt> setting,
+                  <tt style="color: #A03D10">template_name_format</tt>
+                  (<tt style="color: #A03D10">Configuration.setTemplateNameFormat(TemplateNameFormat)</tt>).
+                  This allows specifying the naming rules used by FreeMarker.
+                  For now, custom implementations aren't allowed, and you can
+                  only chose between
+                  <tt style="color: #A03D10">TemplateNameFormat.DEFAULT_2_3_0</tt> (the
+                  default) and <tt style="color: #A03D10">DEFAULT_2_4_0</tt> (recommended,
+                  at least for new projects). <tt style="color: #A03D10">DEFAULT_2_4_0</tt>
+                  has several advantages, but isn't fully backward compatible
+                  (though most applications won't be affected). For typical
+                  mistakes like using backslash instead of slash, or backing
+                  out of the root, it gives
+                  <tt style="color: #A03D10">MalformedTemplateNameFormatException</tt>
+                  instead of <tt style="color: #A03D10">TempalteNotFoundException</tt>. It
+                  allows scheme names to be terminated with
+                  <tt style="color: #A03D10">:</tt> alone, instead of a
+                  <tt style="color: #A03D10">://</tt> (which is also supported), like in
+                  <tt style="color: #A03D10">classpath:foo/bar.ftl</tt>. It fixes numerous
+                  legacy glitches (bugs), mostly related to the interpretation
+                  of <tt style="color: #A03D10">..</tt> after special steps like
+                  <tt style="color: #A03D10">.</tt> or <tt style="color: #A03D10">*</tt>. See the full
+                  list of differences in the <a href="http://freemarker.org/docs/api/freemarker/cache/TemplateNameFormat.html#DEFAULT_2_4_0">Java
+                  API documentation of
+                  <tt>TemplateNameFormat.DEFAULT_2_4_0</tt></a>.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">ClassTemplateLoader</tt> now can be
+                  created by specifying a <tt style="color: #A03D10">ClassLoader</tt>
+                  directly, rather than by specifying a base
+                  <tt style="color: #A03D10">Class</tt>. That is, now there's
+                  <tt style="color: #A03D10">ClassTemplateLoader(ClassLoader, String)</tt>
+                  constructor, and also a
+                  <tt style="color: #A03D10">Configuration.setClassLoaderForTemplateLoading(ClassLoader,
+                  String)</tt> method.</p>
+                </li>
+
+                <li>
+                  <p>Added new exception,
+                  <tt style="color: #A03D10">TemplateNotFoundException</tt>, which is now
+                  used instead of <tt style="color: #A03D10">TemplateNotFoundException</tt>
+                  when getting a template. As it extends
+                  <tt style="color: #A03D10">TemplateNotFoundException</tt>, this change is
+                  backward compatible. The main goal was to counter the common
+                  misunderstanding that template paths are real file paths.
+                  However, the new exception also has the benefit that it can
+                  give additional FreeMarker-specific information about the
+                  error, like right now it has
+                  <tt style="color: #A03D10">getTemplateName()</tt> and
+                  <tt style="color: #A03D10">getCustomLookupCondition()</tt>
+                  methods.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">Template</tt>-s now have a
+                  <tt style="color: #A03D10">getSourceName()</tt> method, in additionally
+                  to <tt style="color: #A03D10">getName()</tt>. These two return the same
+                  as far as no localized lookup or acquisition
+                  (<tt style="color: #A03D10">*</tt> in the name) or other lookup strategy
+                  was actively involved. But when it was,
+                  <tt style="color: #A03D10">getSourceName()</tt> gives the name with which
+                  the template was actually loaded from the
+                  <tt style="color: #A03D10">TemplateLoader</tt>, while
+                  <tt style="color: #A03D10">getName()</tt> returns (and had always
+                  returned) the name with which the template was requested (in
+                  canonicalized form). <tt style="color: #A03D10">getName()</tt> is used
+                  for everything (like for relative inclusion resolution),
+                  except for location information in error messages, which now
+                  uses <tt style="color: #A03D10">getSourceName()</tt>. Also,
+                  <tt style="color: #A03D10">TemplateException</tt> now has a
+                  <tt style="color: #A03D10">getSourceName()</tt> method.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">Configuration.getTemplate(<i style="color: #DD4400">...</i>)</tt>
+                  overloads now accept <tt style="color: #A03D10">null</tt> for the
+                  <tt style="color: #A03D10">locale</tt> and <tt style="color: #A03D10">encoding</tt>
+                  parameters, in which case they use the same defaults as the
+                  overloads where the parameter is omitted.</p>
+                </li>
+
+                <li>
+                  <p>Debugger SPI implementators, attention: The
+                  <tt style="color: #A03D10">DebugBreak</tt> instruction will now send the
+                  <tt style="color: #A03D10">sourceName</tt> of the template to the
+                  <tt style="color: #A03D10">suspendEnvironmentSpi</tt> callback, rather
+                  than its <tt style="color: #A03D10">name</tt>. You should also use the
+                  <tt style="color: #A03D10">sourceName</tt> in
+                  <tt style="color: #A03D10">registerTemplateSpi</tt> and such, not the
+                  <tt style="color: #A03D10">name</tt>.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Configuration:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">Configuration.unset<i style="color: #DD4400">Xxx</i></tt>
+                  and
+                  <tt style="color: #A03D10">is<i style="color: #DD4400">Xxx</i>ExplicitlySet</tt>
+                  methods for several settings. Unsetting a setting makes it
+                  behave as if
+                  <tt style="color: #A03D10">set<i style="color: #DD4400">Xxx</i></tt> was
+                  never called, thus the setting will use the default value
+                  that fits the current
+                  <tt style="color: #A03D10">incompatible_improvements</tt> value and will
+                  be adjusted as <tt style="color: #A03D10">incompatible_improvements</tt>
+                  is changed later.</p>
+                </li>
+
+                <li>
+                  <p>When configuring FreeMarker from
+                  <tt style="color: #A03D10">java.util.Properties</tt> (or with
+                  <tt style="color: #A03D10">String</tt>-<tt style="color: #A03D10">String</tt>
+                  name-value pairs in general):</p>
+
+                      <div class="itemizedlist">
+<ul>
+                    <li>
+                      <p>The <tt style="color: #A03D10">default</tt> setting value is
+                      now recognized by
+                      <tt style="color: #A03D10">template_exception_handler</tt>,
+                      <tt style="color: #A03D10">template_storage</tt>,
+                      <tt style="color: #A03D10">template_loader</tt> (and by the new
+                      <tt style="color: #A03D10">template_lookup_strategy</tt> and
+                      <tt style="color: #A03D10">template_name_format</tt>) settings, and
+                      it causes
+                      <tt style="color: #A03D10">Configuration.unset<i style="color: #DD4400">Xxx</i>()</tt>
+                      to be called.</p>
+                    </li>
+
+                    <li>
+                      <p>Bug fixed: When setting
+                      <tt style="color: #A03D10">object_wrapper</tt> to
+                      <tt style="color: #A03D10">default</tt> (as opposed to not specifying
+                      it), it has ignored the
+                      <tt style="color: #A03D10">incompatible_improvements</tt> and has
+                      always used
+                      <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt>. This
+                      fix only matters when
+                      <tt style="color: #A03D10">incompatible_improvements</tt> is exactly
+                      2.3.21, as that's when the default object wrapper was
+                      changed from
+                      <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt> to the
+                      result of <tt style="color: #A03D10">new
+                      DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_21).build()</tt>,
+                      which is a bit different singleton, as it has read-only
+                      configuration settings and bug fixed overloaded method
+                      selection rules. To use
+                      <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt>
+                      regardless of the value of the
+                      <tt style="color: #A03D10">incompatible_improvements</tt> setting,
+                      use the new <tt style="color: #A03D10">default_2_3_0</tt>
+                      value.</p>
+                    </li>
+                  </ul>    </div>
+
+                </li>
+
+                <li>
+                  <p>Bug fixed: Changing the value of the
+                  <tt style="color: #A03D10">localized_lookup</tt> setting now empties the
+                  template cache, so that old lookup results won't be reused.
+                  (This of course only matters if you change this setting
+                  under an already running service, which is very
+                  unlikely.)</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Miscellaneous:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Bug fixed [<a href="https://sourceforge.net/p/freemarker/bugs/145/">145</a>],
+                  active only with
+                  <tt style="color: #A03D10">incompatible_improvements</tt> set to 2.3.22
+                  (or higher): <tt style="color: #A03D10">#include</tt> and
+                  <tt style="color: #A03D10">#nested</tt> doesn't change the parent
+                  <tt style="color: #A03D10">Template</tt> (see
+                  <tt style="color: #A03D10">Configurable.getParent()</tt>) of the
+                  <tt style="color: #A03D10">Environment</tt> anymore to the
+                  <tt style="color: #A03D10">Template</tt> that's included or where
+                  <tt style="color: #A03D10">#nested</tt> "returns" to. Thus,
+                  the parent of <tt style="color: #A03D10">Environment</tt> will be now
+                  always the main <tt style="color: #A03D10">Template</tt>. (The main
+                  <tt style="color: #A03D10">Template</tt> is the
+                  <tt style="color: #A03D10">Template</tt> whose <tt style="color: #A03D10">process</tt>
+                  or <tt style="color: #A03D10">createProcessingEnvironment</tt> method was
+                  called to initiate the output generation.) Note that this
+                  only matters if you have set settings directly on
+                  <tt style="color: #A03D10">Template</tt> objects (not to be confused with
+                  setting settings in templates via
+                  <tt style="color: #A03D10">#setting</tt>, which just modifies the
+                  <tt style="color: #A03D10">Environment</tt>, and so isn't affected by
+                  this fix), and almost nobody does that. Also note that macro
+                  calls have never changed the <tt style="color: #A03D10">Environment</tt>
+                  parent to the <tt style="color: #A03D10">Template</tt> that contains the
+                  macro definition, so there's no change there now.</p>
+                </li>
+
+                <li>
+                  <p>Bug fixed [<a href="https://sourceforge.net/p/freemarker/bugs/419/">419</a>]:
+                  FreeMarker doesn't fail anymore when it has no permission to
+                  read Java system properties, like when used in unsigned
+                  applets. It just logs some warnings.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">HTML_DEBUG</tt> and
+                  <tt style="color: #A03D10">DEBUG</tt>
+                  <tt style="color: #A03D10">TemplateExceptionHandler</tt> output now
+                  contains a warning like "HTML_DEBUG mode; use RETHROW
+                  in production!", due to frequent misuse.</p>
+                </li>
+
+                <li>
+                  <p>Some fixes and improvements in template canonical form
+                  output, and as a consequence of that, in FTL stack trace
+                  instruction displaying.</p>
+                </li>
+
+                <li>
+                  <p>Marked some historically public but otherwise internal
+                  API-s as deprecated, so that the disclaimer is more apparent
+                  in IDE-s.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_139"></a>Notes  </h2>
+
+
+          <p><a name="topic.defaultObjectWrapperSwitchToAdapters"></a>The
+          consequences and reasons of introducing adapter approach for
+          container types in <tt style="color: #A03D10">DefaultObjectWrapper</tt> when its
+          incompatibleImprovements is set to 2.3.22:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>With the new approach (the adapter approach), the key
+              order of <tt style="color: #A03D10">Map</tt>-s is never lost. The copying
+              approach could only keep that for <tt style="color: #A03D10">HashMap</tt>
+              subclasses (such as <tt style="color: #A03D10">LinkedHashMap</tt>) and
+              <tt style="color: #A03D10">SortedMap</tt>-s (such as
+              <tt style="color: #A03D10">TreeMap</tt>), but not for more exotic
+              <tt style="color: #A03D10">Map</tt>-s, like Guava's
+              <tt style="color: #A03D10">ImmutableMap</tt>. Also, any other behavioral
+              peculiarities of the original <tt style="color: #A03D10">Map</tt> (e.g., case
+              insensitive key lookup) is kept now.</p>
+            </li>
+
+            <li>
+              <p>The exact type and identity of the
+              <tt style="color: #A03D10">Map</tt>/<tt style="color: #A03D10">List</tt> is kept when the
+              wrapped value is passed back to a Java method from the template.
+              With the legacy approach the Java methods have received a
+              <tt style="color: #A03D10">Map</tt> or <tt style="color: #A03D10">List</tt> of a special
+              FreeMarker specific type (that acted as an adapter for the
+              <tt style="color: #A03D10">TemplateModel</tt>).</p>
+            </li>
+
+            <li>
+              <p>Performance characteristics change, mostly for the better,
+              but it depends on the application. If the template reads the
+              <i>same(!)</i> entry <i>from the data
+              model</i> roughly once or twice (or not at all), which is
+              typical, them the adapter approach gives better results,
+              otherwise the legacy copying approach is faster (as it can reuse
+              the wrapped entry from the previous read), though this slowdown
+              certainly not a concern for most applications. The performance
+              of the new adapter approach is more predictable, because it has
+              no initial "spike" to set up the container copy
+              (especially painful for huge collections), instead the
+              performance is linearly proportional to the number of data model
+              reads (and not to the number of collection entries).</p>
+            </li>
+
+            <li>
+              <p>If the
+              <tt style="color: #A03D10">Map</tt>/<tt style="color: #A03D10">List</tt>/array is changed
+              after it was wrapped, the change will now become visible in the
+              data-model. With the copying approach, the wrapped value was a
+              shallow-snapshot of the original
+              <tt style="color: #A03D10">Map</tt>/<tt style="color: #A03D10">List</tt>/array. While it's
+              unlikely that someone has deliberately utilized this, it's a
+              risk factor when switching to adapters.</p>
+            </li>
+
+            <li>
+              <p>It's theoretically possible that some code (mostly
+              <tt style="color: #A03D10">TemplateDirectiveModel</tt> implementations)
+              mistakenly assumed that wrapped <tt style="color: #A03D10">Map</tt>-s are
+              <tt style="color: #A03D10">SimpleHash</tt>-es, and wrapped
+              <tt style="color: #A03D10">List</tt>-s are
+              <tt style="color: #A03D10">SimpleSequence</tt>-s, etc., instead of them just
+              being <tt style="color: #A03D10">TemplateHashModel</tt>-s and
+              <tt style="color: #A03D10">TemplateSequenceModel</tt>-s. Such code was always
+              wrong, but now it will indeed break, so it's a risk
+              factor.</p>
+            </li>
+
+            <li>
+              <p>As now the exact type of the wrapped original object is
+              used for overloaded method selection, the choice can be
+              different (and similar to what it would be with pure
+              <tt style="color: #A03D10">BeansWrapper</tt>). It's difficult to find cases
+              where this matters. A change is most probable around arrays, as
+              with the copying approach they were unwrapped to
+              <tt style="color: #A03D10">List</tt>-s, not to the original array. As the
+              overloaded method mechanism can convert between arrays and lists
+              (in both directions), it's usually not a problem. But, it
+              doesn't do conversion between different array types when the
+              overloaded method has various types on the parameter position of
+              the array, so that's a risk factor.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">SimpleHash</tt> and
+              <tt style="color: #A03D10">SimpleSequence</tt> haven't become deprecated.
+              They are still used for hashes and sequences created in FTL, and
+              are recommended for values that are built specifically to be
+              used from templates, rather than wrapping an already existing
+              <tt style="color: #A03D10">Map</tt> or <tt style="color: #A03D10">List</tt> or
+              array.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">List</tt>-s and <tt style="color: #A03D10">Map</tt>-s
+              that are exposed to templates in multiple threads are now under
+              greater stress regarding their correct operation under
+              multi-threaded read-only access. This is because the adapters
+              won't copy their contents into well known
+              <tt style="color: #A03D10">List</tt> and <tt style="color: #A03D10">Map</tt>
+              implementations (<tt style="color: #A03D10">HashMap</tt>,
+              <tt style="color: #A03D10">ArrayList</tt>, etc.) before accessing them from
+              multiple threads. So this is mostly a concern with custom
+              <tt style="color: #A03D10">List</tt> and <tt style="color: #A03D10">Map</tt>
+              implementations, which aren't as mature as the standard Java
+              classes. Note that this was always like so with pure
+              <tt style="color: #A03D10">BeansWrapper</tt>, which is used by a lot of
+              projects/frameworks (like by Struts) for a long time, so it's
+              not an uncharted territory.</p>
+            </li>
+
+            <li>
+              <p>When the wrapped <tt style="color: #A03D10">List</tt> is a
+              <tt style="color: #A03D10">AbstractSequentialList</tt> (like a
+              <tt style="color: #A03D10">LinkedList</tt>), the resulting adapter will
+              implement <tt style="color: #A03D10">TemplateCollectionModel</tt> for more
+              efficient enumeration (<tt style="color: #A03D10">#list</tt>-ing), in
+              additionally to <tt style="color: #A03D10">TemplateSequenceModel</tt> of
+              course. <tt style="color: #A03D10">TemplateCollectionModel</tt> allows FTL to
+              traverse the list without accessing elements by index. With the
+              legacy copying approach
+              <tt style="color: #A03D10">TemplateCollectionModel</tt> wasn't implemented as
+              it wasn't needed for efficient enumeration there.</p>
+            </li>
+
+            <li>
+              <p>Iterators (when you put them directly into the data-model)
+              are wrapped into <tt style="color: #A03D10">DefaultIteratorAdapter</tt>
+              instead of <tt style="color: #A03D10">SimpleCollection</tt>. This has two
+              consequences:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The wrapped <tt style="color: #A03D10">Iterator</tt> is now
+                  unwrapped properly to the original Java object when it's
+                  passed to Java method from the template.</p>
+                </li>
+
+                <li>
+                  <p>Wrapped <tt style="color: #A03D10">Iterator</tt>-s (not to be
+                  confused with <tt style="color: #A03D10">Iterable</tt>) aren't
+                  thread-safe anymore, to spare some synchronizations, after
+                  all, exposing the same <tt style="color: #A03D10">Iterator</tt> to
+                  multiple parallel template executions doesn't make much
+                  sense. This shouldn't be a migration concern, as even
+                  earlier, only one of those template executions could succeed
+                  (the "content" of <tt style="color: #A03D10">Iterator</tt>-s
+                  wasn't copied, so the one who first accessed it become the
+                  exclusive owner). The change is just that earlier it was
+                  guaranteed that the other threads will fail (that was the
+                  thread-safe about it), while now there are no such
+                  guarantees.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_21.html"><span class="hideA">Next page: </span>2.3.21</a></div><div class="pagerButton"><a href="app_versions.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">FreeMarker Manual</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Version history</a>
+            <b>></b>
+          2.3.22
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.22
+            <br>
+          HTML generated: 2015-02-28 21:34:03 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

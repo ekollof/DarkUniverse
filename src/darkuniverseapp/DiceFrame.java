@@ -23,7 +23,9 @@ public class DiceFrame extends javax.swing.JDialog {
 	public int dicetype = 100;
 	public boolean rolled = false;
 
-	/** Creates new form DiceFrame */
+	/** Creates new form DiceFrame
+     * @param parent
+     * @param modal */
 	public DiceFrame(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
@@ -165,7 +167,6 @@ public class DiceFrame extends javax.swing.JDialog {
 			jLabel1.setText("Roll 1xd100");
 			dicetype = 100;
 		}
-		return;
 	}
 
 	@Action
@@ -186,7 +187,6 @@ public class DiceFrame extends javax.swing.JDialog {
 		lastrolled = r;
 		jLabel2.setText("Roll: " + r);
 		System.out.println("Rolled: " + r);
-		return;
 
 	}
 
